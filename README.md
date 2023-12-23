@@ -108,7 +108,7 @@ The available options:
 - `underlengthcc = "true"` (true/false string)
   - `"true"`  (enables highlighting of colorcolumn even when it is underlength)
   - `"false"` (disables highlighting of colorcolumn when it is underlength)
-- `overlengthhex = "#00FFFF"` (overlength cc colour hex value)
+- `underlengthhex = "#00FFFF"` (underlength cc colour hex value)
 - `overlengthcc = "true"` (true/false string)
   - `"true"`  (enables highlighting of colorcolumn even when it is overlength)
   - `"false"` (disables highlighting of colorcolumn when it is overlength)

@@ -1,24 +1,24 @@
 <h1 align="center">
-smartcolumn.nvim
+smartercolumn.nvim
 </h1>
 
 <p align="center">
-<a href="https://github.com/m4xshen/smartcolumn.nvim/stargazers">
+<a href="https://github.com/HacksPloiter/smartercolumn.nvim/stargazers">
     <img
       alt="Stargazers"
-      src="https://img.shields.io/github/stars/m4xshen/smartcolumn.nvim?style=for-the-badge&logo=starship&color=fae3b0&logoColor=d9e0ee&labelColor=282a36"
+      src="https://img.shields.io/github/stars/HacksPloiter/smartercolumn.nvim?style=for-the-badge&logo=starship&color=fae3b0&logoColor=d9e0ee&labelColor=282a36"
     />
   </a>
-  <a href="https://github.com/m4xshen/smartcolumn.nvim/issues">
+  <a href="https://github.com/HacksPloiter/smartercolumn.nvim/issues">
     <img
       alt="Issues"
-      src="https://img.shields.io/github/issues/m4xshen/smartcolumn.nvim?style=for-the-badge&logo=gitbook&color=ddb6f2&logoColor=d9e0ee&labelColor=282a36"
+      src="https://img.shields.io/github/issues/HacksPloiter/smartercolumn.nvim?style=for-the-badge&logo=gitbook&color=ddb6f2&logoColor=d9e0ee&labelColor=282a36"
     />
   </a>
-  <a href="https://github.com/m4xshen/smartcolumn.nvim/contributors">
+  <a href="https://github.com/HacksPloiter/smartercolumn.nvim/contributors">
     <img
       alt="Contributors"
-      src="https://img.shields.io/github/contributors/m4xshen/smartcolumn.nvim?style=for-the-badge&logo=opensourceinitiative&color=abe9b3&logoColor=d9e0ee&labelColor=282a36"
+      src="https://img.shields.io/github/contributors/HacksPloiter/smartercolumn.nvim?style=for-the-badge&logo=opensourceinitiative&color=abe9b3&logoColor=d9e0ee&labelColor=282a36"
     />
   </a>
 </p>
@@ -27,16 +27,20 @@ smartcolumn.nvim
 
 ## 📃 Introduction
 
-A Neovim plugin hiding your colorcolumn when unneeded.
+A Neovim plugin which hides your colorcolumn when not needed.
+
+This repo is a clone of original smartcolumn.nvim plugin but enhanced with more features and freedom.
+Please note that I'll be committing changes to this repo as per my personal need so feel free to fork it and change the code as per your requirement.
 
 ## ⚙️ Features
 
-The colorcolumn is hidden as default, but it appears after one of lines in the
-scope exceeds the `colorcolumn` value you set.
+By enabling this plugin it is assumed that the default colourcolumn behaviour is intended to be overriddeen. Both the underlength and the overlength colorcolumn is enabled as default. Both can be managed separetely. If underlength colorcolumn is disabled but overlength colorcolumn is enabled, the plugin will bring colorcolumn only when the length of line (depending on the scope), crosses the specified limit. Limit can be overriddeen in the configuration.
 
 You can:
 
-- hide colorcolumn for specific filetype
+- hide or show underlength colorcolumn for specific filetype
+- hide or show overlength colorcolumn for specific filetype
+- customise the colour of above two, with colour hex.
 - set custom colorcolumn value for different filetype
 - specify the scope where the plugin should work
 
@@ -48,7 +52,7 @@ You can:
 
 ```Lua
 {
-  "m4xshen/smartcolumn.nvim",
+  "HacksPloiter/smartercolumn.nvim",
   opts = {}
 },
 ```
@@ -56,20 +60,20 @@ You can:
 - [packer.nvim](https://github.com/wbthomason/packer.nvim)
 
 ```Lua
-use "m4xshen/smartcolumn.nvim"
+use "HacksPloiter/smartercolumn.nvim"
 ```
 
 - [vim-plug](https://github.com/junegunn/vim-plug)
 
 ```VimL
-Plug "m4xshen/smartcolumn.nvim"
+Plug "HacksPloiter/smartercolumn.nvim"
 ```
 
 2. Setup the plugin in your `init.lua`. This step is not needed with lazy.nvim
    if `opts` is set as above.
 
 ```Lua
-require("smartcolumn").setup()
+require("smartercolumn").setup()
 ```
 
 ## 🔧 Configuration
@@ -79,9 +83,9 @@ lazy.nvim.
 
 The available options:
 
-- `colorcolumn` (strings or table) : screen columns that are highlighted
-  - `"80"` (default)
-  - `{ "80", "100" }`
+- `colorcolumn` (strings or table) : screen columns that are highlighted. This overrides cc specified anywhere else. If left blank gets the existing cc value. If left blank and not specified anywhere else, sets 81 as the cc.
+  - `"81"` (default)
+  - `{ "81" }`
 - `disabled_filetypes` (table of strings) : the `colorcolumn` will be disabled
   under the filetypes in this table
   - `{ "help", "text", "markdown" }` (default)
@@ -101,14 +105,26 @@ The available options:
      return "100"
   end
   ```
+- `underlengthcc = "true"` (true/false string)
+  - `"true"`  (enables highlighting of colorcolumn even when it is underlength)
+  - `"false"` (disables highlighting of colorcolumn when it is underlength)
+- `overlengthhex = "#00FFFF"` (overlength cc colour hex value)
+- `overlengthcc = "true"` (true/false string)
+  - `"true"`  (enables highlighting of colorcolumn even when it is overlength)
+  - `"false"` (disables highlighting of colorcolumn when it is overlength)
+- `overlengthhex = "#f92672"` (overrlength cc colour hex value)
 
 ### Default config
 
 ```Lua
 local config = {
-   colorcolumn = "80",
+   colorcolumn = "81",
    disabled_filetypes = { "help", "text", "markdown" },
    custom_colorcolumn = {},
    scope = "file",
+   underlengthcc = 'true',
+   underlengthhex = "#00FFFF",
+   overlengthcc = 'true',
+   overlengthhex = "#f92672",
 }
 ```

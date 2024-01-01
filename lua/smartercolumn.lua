@@ -1,14 +1,11 @@
-local smartcolumn = {}
+local smartercolumn = {}
 
 local config = {
- colorcolumn = string.match(vim.api.nvim_exec('se colorcolumn',true),"%d+")
-               or "81",
+ colorcolumn = "81",
  underlengthcc = "false",
- underlengthhex = vim.api.nvim_exec(
-                      'hi ColorColumn',
-                      true):match("guibg=([#a-fA-F0-9]+|cleared)") or "#2e333c",
+ underlengthhex = "#00FF00",
  overlengthcc = "false",
- overlengthhex = "#990674",
+ overlengthhex = "#ff0000",
  disabled_filetypes = { "help", "text", "markdown" },
  custom_colorcolumn = {},
  scope = "file",
@@ -73,13 +70,15 @@ local function update()
           else
             if config.overlengthcc=="true" then
               vim.wo[win].colorcolumn = colorcolumns
-              vim.cmd('highlight ColorColumn guibg='..config.overlengthhex)
+              vim.cmd("highlight OverLengthHlg guibg="..config.overlengthhex)
+              vim.cmd("set winhighlight=ColorColumn:OverLengthHlg")
             end
           end
         else
           if config.underlengthcc == "true" then
             vim.wo[win].colorcolumn = colorcolumns
-            vim.cmd('highlight ColorColumn guibg='..config.underlengthhex)
+            vim.cmd("highlight UnderLengthHlg guibg="..config.underlengthhex)
+            vim.cmd("set winhighlight=ColorColumn:UnderLengthHlg")
           else
             vim.cmd('se cc=')
           end
@@ -89,19 +88,10 @@ local function update()
   end
 end
 
-function smartcolumn.setup(user_config)
+function smartercolumn.setup(user_config)
   user_config = user_config or {}
   for option, value in pairs(user_config) do
     config[option] = value
-  end
-
-  if (config.underlengthcc == "false" and config.overlengthcc == "false") then
-    vim.cmd('se cc')
-    return
-  elseif (config.underlengthcc == "true" and
-          config.overlengthcc == "false") then
-    vim.cmd('se cc='..config.colorcolumn)
-    vim.cmd('highlight ColorColumn guibg='..config.underlengthhex)
   end
 
   local group = vim.api.nvim_create_augroup("SmarterColumn", {})
@@ -113,4 +103,4 @@ function smartcolumn.setup(user_config)
     })
 end
 
-return smartcolumn
+return smartercolumn

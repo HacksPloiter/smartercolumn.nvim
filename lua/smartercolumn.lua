@@ -2,9 +2,9 @@ local smartercolumn = {}
 
 local config = {
  colorcolumn = "81",
- underlengthcc = "false",
+ underlengthcc = "true",
  underlengthhex = "#00FF00",
- overlengthcc = "false",
+ overlengthcc = "true",
  overlengthhex = "#ff0000",
  disabled_filetypes = { "help", "text", "markdown" },
  custom_colorcolumn = {},

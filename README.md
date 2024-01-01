@@ -83,7 +83,7 @@ lazy.nvim.
 
 The available options:
 
-- `colorcolumn` (strings or table) : screen columns that are highlighted. This overrides cc specified anywhere else. If left blank gets the existing cc value. If left blank and not specified anywhere else, sets 81 as the cc.
+- `colorcolumn` (strings or table) : screen columns that are highlighted. This overrides cc specified anywhere else. If left blank sets cc=81.
   - `"81"` (default)
   - `{ "81" }`
 - `disabled_filetypes` (table of strings) : the `colorcolumn` will be disabled
@@ -123,8 +123,8 @@ local config = {
    custom_colorcolumn = {},
    scope = "file",
    underlengthcc = 'true',
-   underlengthhex = "#00FFFF",
+   underlengthhex = "#00FF00",
    overlengthcc = 'true',
-   overlengthhex = "#f92672",
+   overlengthhex = "#ff0000",
 }
 ```
